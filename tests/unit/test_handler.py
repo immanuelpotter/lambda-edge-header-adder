@@ -1,5 +1,4 @@
 import json
-
 import pytest
 
 from header_add import app
@@ -66,13 +65,27 @@ def cf_event():
     ]
 }
 
-def test_lambda_handler(cf_event, mocker):
+def test_lambda_handler(cf_event):
 
-    ret = app.lambda_handler(cf_event, "")
-    data = json.loads(ret["body"])
+    ret = app.lambda_handler(cf_event, "") # second arg is empty context
+    print(ret)
+    assert ret["status"] == '200'
+    assert ret["statusDescription"] == "OK"
 
-    assert ret["statusCode"] == 200
-    assert ret["statusDescription"] == OK
-    assert ret["headers"]["transport-security"]["key"] == "Strict-Transport-Security"
-    assert ret["headers"]["transport-security"]["value"] == "max-age=63072000; includeSubdomains; preload"
-    assert "" in ret["body"]
+    assert ret["headers"]["strict-transport-security"][0]["key"] == "Strict-Transport-Security"
+    assert ret["headers"]["strict-transport-security"][0]["value"] == "max-age=63072000; includeSubdomains; preload"
+
+    assert ret["headers"]["content-security-policy"][0]["key"] == "Content-Security-Policy"
+    assert ret["headers"]["content-security-policy"][0]["value"] == "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
+
+    assert ret["headers"]["x-content-type-options"][0]["key"] == "X-Content-Type-Options"
+    assert ret["headers"]["x-content-type-options"][0]["value"] == "nosniff"
+
+    assert ret["headers"]["x-frame-options"][0]["key"] == "X-Frame-Options"
+    assert ret["headers"]["x-frame-options"][0]["value"] == "DENY"
+
+    assert ret["headers"]["x-xss-protection"][0]["key"] == "X-XSS-Protection"
+    assert ret["headers"]["x-xss-protection"][0]["value"] == "1; mode=block"
+
+    assert ret["headers"]["referrer-policy"][0]["key"] == "Referrer-Policy"
+    assert ret["headers"]["referrer-policy"][0]["value"] == "same-origin"
