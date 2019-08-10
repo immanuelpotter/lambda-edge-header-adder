@@ -1,8 +1,12 @@
-.PHONY: all build package deploy
+.PHONY: all test build package deploy
 
 AWS_PROFILE='manny'
+FUNCTION_NAME='HeaderAddFunction'
 S3_BUCKET='manny-aws-sam-artefacts'
-all: build package deploy
+all: test build package deploy
+
+test:
+	sam local invoke ${FUNCTION_NAME} --event event.json
 
 build:
 	sam build
