@@ -1,9 +1,9 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  sam-app
+  HeaderAdd
 
-  Sample SAM Template for sam-app
+  SAM Template for adding more secure headers to Cloudfront Origin Responses. Note this just creates the function + role; you will have to rig up CloudFront yourself.
 
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
