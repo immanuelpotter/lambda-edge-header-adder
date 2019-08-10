@@ -3,13 +3,12 @@
 AWS_PROFILE='manny'
 FUNCTION_NAME='HeaderAddFunction'
 S3_BUCKET='manny-aws-sam-artefacts'
-all: run build test package deploy
-
-run:
-	sam local invoke ${FUNCTION_NAME} --event event.json
+all: build run test package deploy
 
 build:
 	sam build
+run:
+	sam local invoke ${FUNCTION_NAME} --event event.json
 
 test:
 	python3 -m pytest tests/ -v
