@@ -76,7 +76,7 @@ def test_lambda_handler(cf_event):
     assert ret["headers"]["strict-transport-security"][0]["value"] == "max-age=63072000; includeSubdomains; preload"
 
     assert ret["headers"]["content-security-policy"][0]["key"] == "Content-Security-Policy"
-    assert ret["headers"]["content-security-policy"][0]["value"] == "default-src 'none'; script-src 'self'; object-src 'none'"
+    assert ret["headers"]["content-security-policy"][0]["value"] == "script-src 'self'; object-src 'none'"
 
     assert ret["headers"]["x-content-type-options"][0]["key"] == "X-Content-Type-Options"
     assert ret["headers"]["x-content-type-options"][0]["value"] == "nosniff"

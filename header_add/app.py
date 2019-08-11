@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     headers["content-security-policy"] = [
             {
                 "key": "Content-Security-Policy",
-                "value": "default-src 'none'; script-src 'self'; object-src 'none'"
+                "value": "script-src 'self'; object-src 'none'"
             }
     ]
 
