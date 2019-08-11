@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     headers["content-security-policy"] = [
             {
                 "key": "Content-Security-Policy",
-                "value": "default-src 'none'; img-src '*.imgur.com'; script-src 'self'; style-src 'self'; object-src 'none'"
+                "value": "default-src 'none'; img-src 'self' 'imgur.com/*'; script-src 'self'; style-src 'self'; object-src 'none'"
             }
     ]
 
