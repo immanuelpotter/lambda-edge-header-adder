@@ -23,6 +23,9 @@ This is a sample template for lambda-edge-header-adder - Below is a brief explan
 * [Python 3 installed](https://www.python.org/downloads/)
 * [Docker installed](https://www.docker.com/community-edition)
 
+## Makefile
+Running `make` will build, run locally, test, package + deploy the function. This allows for quick end-to-end rapid deployments.
+
 ## Setup process
 
 ### Local development
@@ -30,7 +33,7 @@ This is a sample template for lambda-edge-header-adder - Below is a brief explan
 **Invoking function locally using a local sample payload**
 
 ```bash
-sam local invoke HelloWorldFunction --event event.json
+sam local invoke HeaderAddFunction --event event.json
 ```
 
 **Invoking function locally through local API Gateway**
@@ -59,7 +62,7 @@ AWS Lambda Python runtime requires a flat folder with all dependencies including
 
 ```yaml
 ...
-    HelloWorldFunction:
+    HeaderAddFunction:
         Type: AWS::Serverless::Function
         Properties:
             CodeUri: hello_world/
@@ -107,7 +110,7 @@ To simplify troubleshooting, SAM CLI has a command called sam logs. sam logs let
 `NOTE`: This command works for all AWS Lambda functions; not just the ones you deploy using SAM.
 
 ```bash
-sam logs -n HelloWorldFunction --stack-name lambda-edge-header-adder --tail
+sam logs -n HeaderAddFunction --stack-name lambda-edge-header-adder --tail
 ```
 
 You can find more information and examples about filtering Lambda function logs in the [SAM CLI Documentation](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-logging.html).
@@ -138,7 +141,7 @@ Here are a few things you can try to get more acquainted with building serverles
 
 * Uncomment lines on `app.py`
 * Build the project with ``sam build --use-container``
-* Invoke with ``sam local invoke HelloWorldFunction --event event.json``
+* Invoke with ``sam local invoke HeaderAddFunction --event event.json``
 * Update tests
 
 ### Create an additional API resource
@@ -179,7 +182,7 @@ All commands used throughout this document
 sam local generate-event apigateway aws-proxy > event.json
 
 # Invoke function locally with event.json as an input
-sam local invoke HelloWorldFunction --event event.json
+sam local invoke HeaderAddFunction --event event.json
 
 # Run API Gateway locally
 sam local start-api
@@ -205,6 +208,6 @@ aws cloudformation describe-stacks \
     --output table
 
 # Tail Lambda function Logs using Logical name defined in SAM Template
-sam logs -n HelloWorldFunction --stack-name lambda-edge-header-adder --tail
+sam logs -n HeaderAddFunction --stack-name lambda-edge-header-adder --tail
 ```
 
