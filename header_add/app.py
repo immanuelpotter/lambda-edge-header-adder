@@ -14,7 +14,7 @@ def lambda_handler(event, context):
     headers["content-security-policy"] = [
             {
                 "key": "Content-Security-Policy",
-                "value": "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
+                "value": "default-src 'none'; img-src '*.imgur.com'; script-src 'self'; style-src 'self'; object-src 'none'"
             }
     ]
 
@@ -43,6 +43,13 @@ def lambda_handler(event, context):
             {
                 "key": "Referrer-Policy",
                 "value": "same-origin"
+            }
+    ]
+
+    headers["cache-control"] = [
+            {
+                "key": "Cache-Control",
+                "value": "max-age=604800"
             }
     ]
 

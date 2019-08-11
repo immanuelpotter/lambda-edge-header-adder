@@ -76,7 +76,7 @@ def test_lambda_handler(cf_event):
     assert ret["headers"]["strict-transport-security"][0]["value"] == "max-age=63072000; includeSubdomains; preload"
 
     assert ret["headers"]["content-security-policy"][0]["key"] == "Content-Security-Policy"
-    assert ret["headers"]["content-security-policy"][0]["value"] == "default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
+    assert ret["headers"]["content-security-policy"][0]["value"] == "default-src 'none'; img-src '*.imgur.com'; script-src 'self'; style-src 'self'; object-src 'none'"
 
     assert ret["headers"]["x-content-type-options"][0]["key"] == "X-Content-Type-Options"
     assert ret["headers"]["x-content-type-options"][0]["value"] == "nosniff"
@@ -89,3 +89,6 @@ def test_lambda_handler(cf_event):
 
     assert ret["headers"]["referrer-policy"][0]["key"] == "Referrer-Policy"
     assert ret["headers"]["referrer-policy"][0]["value"] == "same-origin"
+
+    assert ret["headers"]["cache-control"][0]["key"] == "Cache-Control"
+    assert ret["headers"]["cache-control"][0]["value"] == "max-age=604800"

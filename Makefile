@@ -14,7 +14,7 @@ test:
 	python3 -m pytest tests/ -v
 
 package:
-	sam package --s3-bucket ${S3_BUCKET}
+	sam package --s3-bucket ${S3_BUCKET} | awk 'NR>1' | tee packaged-header-add.yaml
 
 deploy:
 	sam deploy \
